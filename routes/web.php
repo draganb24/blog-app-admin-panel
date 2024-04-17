@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('back.layouts.auth-layout');
+    return view('login');
 });
