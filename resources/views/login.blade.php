@@ -1,4 +1,5 @@
-
+@extends('layouts.app')
+@section('content')
 <!doctype html>
 <html lang="en">
   <head>
@@ -68,3 +69,4 @@
     <script src="./back/dist/js/demo.min.js?1695847769" defer></script>
   </body>
 </html>
+@endsection

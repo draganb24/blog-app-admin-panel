@@ -2,6 +2,6 @@
 @section('content')
 <!DOCTYPE html>
 <html>
-    welcome page!
+    posts page!
 </html>
 @endsection
