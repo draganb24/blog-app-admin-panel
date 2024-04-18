@@ -7,11 +7,20 @@
 
     <title> @yield('title') | {{ config('app.name') }}</title>
 
-    <link href="https://bootswatch.com/5/lux/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="./back/dist/css/tabler.min.css?1695847769" rel="stylesheet"/>
+        <link href="./back/dist/css/tabler-flags.min.css?1695847769" rel="stylesheet"/>
+        <link href="./back/dist/css/tabler-payments.min.css?1695847769" rel="stylesheet"/>
+        <link href="./back/dist/css/tabler-vendors.min.css?1695847769" rel="stylesheet"/>
+        <link href="./back/dist/css/demo.min.css?1695847769" rel="stylesheet"/>
+        <style>
+          @import url('https://rsms.me/inter/inter.css');
+          :root {
+              --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
+          }
+          body {
+              font-feature-settings: "cv03", "cv04", "cv11";
+          }
+        </style>
 </head>
 
 <body>
@@ -20,9 +29,8 @@
         {{-- page content goes here --}}
         @yield('content')
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
-    </script>
+    <script src="./back/dist/js/tabler.min.js?1695847769" defer></script>
+    <script src="./back/dist/js/demo.min.js?1695847769" defer></script>
 </body>
 
 </html>

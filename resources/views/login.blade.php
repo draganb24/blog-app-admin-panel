@@ -2,25 +2,7 @@
 @section('content')
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Ulogujte se</title>
-    <link href="./back/dist/css/tabler.min.css?1695847769" rel="stylesheet"/>
-    <link href="./back/dist/css/tabler-flags.min.css?1695847769" rel="stylesheet"/>
-    <link href="./back/dist/css/tabler-payments.min.css?1695847769" rel="stylesheet"/>
-    <link href="./back/dist/css/tabler-vendors.min.css?1695847769" rel="stylesheet"/>
-    <link href="./back/dist/css/demo.min.css?1695847769" rel="stylesheet"/>
-    <style>
-      @import url('https://rsms.me/inter/inter.css');
-      :root {
-      	--tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
-      }
-      body {
-      	font-feature-settings: "cv03", "cv04", "cv11";
-      }
-    </style>
-  </head>
-  <body  class=" d-flex flex-column">
-    <script src=".back/dist/js/demo-theme.min.js?1695847769"></script>
+  <div  class=" d-flex flex-column">
     <div class="page page-center">
       <div class="container container-tight py-4">
         <div class="card card-md">
@@ -65,8 +47,6 @@
         </div>
       </div>
     </div>
-    <script src="./back/dist/js/tabler.min.js?1695847769" defer></script>
-    <script src="./back/dist/js/demo.min.js?1695847769" defer></script>
-  </body>
+</div>
 </html>
 @endsection
