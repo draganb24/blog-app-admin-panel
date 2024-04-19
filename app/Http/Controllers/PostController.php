@@ -22,7 +22,16 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        return $this->post->create($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'author' => 'required|string',
+        ]);
+
+        $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
+        $validatedData['slug'] = $slug;
+        $post = $this->post->create($validatedData);
+        return $post;
     }
 
     public function show(string $slug)
