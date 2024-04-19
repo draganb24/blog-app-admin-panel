@@ -27,7 +27,8 @@ class PostController extends Controller
 
     public function show(string $slug)
     {
-        return $this->post->where('slug', $slug)->first();
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('posts.show', compact('post'));
     }
 
     public function update(Request $request, string $slug)

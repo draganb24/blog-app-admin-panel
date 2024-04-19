@@ -9,6 +9,8 @@ Route::get('/', function () {
 
 Route::get('/objave', [PostController::class, 'index']);
 
+Route::get('/objave/{slug}', [PostController::class, 'show'])->name('posts.show');
+
 Route::get('/nova-objava', function () {
     return view('new-post');
 });
