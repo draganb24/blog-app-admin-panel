@@ -22,18 +22,7 @@
                           Kategorije
                         </span>
                       </a>
-                      <div class="dropdown-menu">
-                        <div class="dropdown-menu-columns">
-                          <div class="dropdown-menu-column">
-                            <a class="dropdown-item" href="./alerts.html">
-                              Alerts
-                            </a>
-                            <a class="dropdown-item" href="./accordion.html">
-                              Accordion
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      <x-categories />
                     </li>
                     <li class="nav-item {{ request()->is('nova-objava*') ? 'active' : '' }}">
                       <a class="nav-link" href="/nova-objava">

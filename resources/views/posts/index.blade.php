@@ -9,7 +9,7 @@
                          @php
                              $imageUrl = App\Models\Image::where('id', $post->image_id)->value('image_path');
                          @endphp
-                         <a href="{{ route('posts.show', $post->slug) }}">
+                         <a href="{{ route('post.show', $post->slug) }}">
                              <div class="img-responsive img-responsive-21x9 card-img-top"
                                  style="background-image: url('{{ $imageUrl }}')"></div>
                          </a>
