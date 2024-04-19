@@ -16,7 +16,8 @@ class PostController extends Controller
 
     public function index()
     {
-        return $this->post->all();
+        $posts = $this->post->all();
+        return view('posts.index', compact('posts'));
     }
 
     public function store(Request $request)

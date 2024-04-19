@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/objave', function () {
-    return view('posts');
-});
+Route::get('/objave', [PostController::class, 'index']);
 
 Route::get('/nova-objava', function () {
     return view('new-post');
