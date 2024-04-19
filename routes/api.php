@@ -8,9 +8,9 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubcategoryController;
 
-Route::post("login", [ApiController::class,"login"]);
+Route::post('/login', [ApiController::class, 'login'])->name('login');
 
-Route::post("logout", [ApiController::class,"logout"]);
+Route::post("logout", [ApiController::class,"logout"])->name('logout');
 
 Route::apiResource('/kategorije', CategoryController::class);
 
