@@ -17,6 +17,12 @@
                              <h3 class="card-title">{{ $post->title }}</h3>
                              <p class="text-muted">Autor: {{ $post->author }}</p>
                              <p class="text-muted">Kreirano: {{ $post->created_at }}</p>
+                             <a href="{{ route('post.edit.form', $post->slug) }}" class="btn">
+                                Izmjeni
+                              </a>
+                              <a href="#" class="btn">
+                                Obriši
+                              </a>
                          </div>
                      </div>
                  </div>

@@ -13,6 +13,11 @@ Route::get('/objave', [PostController::class, 'index']);
 
 Route::get('/objave/{slug}', [PostController::class, 'show'])->name('post.show');
 
+Route::get('uredi/objave/{slug}', [PostController::class, 'update'])->name('post.edit.form');
+
+Route::put('uredi/objave/{slug}', [PostController::class, 'update'])->name('post.update');
+
+
 Route::get('/nova-objava', function () {
     return view('posts.new-post');
 });

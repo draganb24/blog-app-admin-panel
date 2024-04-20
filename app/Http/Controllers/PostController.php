@@ -44,7 +44,7 @@ class PostController extends Controller
     {
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->update($request->all());
-        return $post;
+        return view('posts.edit', compact('post'));
     }
 
     public function destroy(string $slug)
