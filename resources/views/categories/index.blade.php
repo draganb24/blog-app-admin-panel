@@ -32,7 +32,7 @@
                         <thead>
                             <tr>
                                 <th>Naziv</th>
-                                <th>Podkategorije</th>
+                                <th>Potkategorije</th>
                                 <th class="w-1"></th>
                             </tr>
                         </thead>
