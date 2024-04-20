@@ -6,7 +6,7 @@ use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
 Route::get('/objave', [PostController::class, 'index']);

@@ -30,14 +30,7 @@
                           </span>
                         </a>
                       </li>
-                    <li class="nav-item {{ request()->is('ulogujte-se*') ? 'active' : '' }}">
-                      <a class="nav-link" href="/ulogujte-se">
-                        <span class="nav-link-title">
-                          Ulogujte se
-                        </span>
-                      </a>
-                    </li>
-
+                    @auth
                     <li class="nav-item">
                         <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                           @csrf
@@ -48,6 +41,7 @@
                           </button>
                         </form>
                       </li>
+                      @endauth
                   </ul>
                 </div>
               </div>

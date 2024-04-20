@@ -1,58 +1,62 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
 
     public function login(Request $request)
-{
-    try {
-        $validator = $this->validateLoginRequest($request);
+    {
+        try {
+            $validateUser = Validator::make(
+                $request->all(),
+                [
+                    'email' => 'required|email',
+                    'password' => 'required'
+                ]
+            );
 
-        if ($validator->fails()) {
-            return $this->validationErrorResponse($validator->errors());
-        }
+            if ($validateUser->fails()) {
+                return redirect('/')->with([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validateUser->errors()
+                ], 401);
+            }
 
-        if (!auth()->attempt($request->only(['email', 'password']))) {
-            return response()->json([
+            if (!Auth::attempt($request->only(['email', 'password']))) {
+                return redirect('/')->with([
+                    'status' => false,
+                    'message' => 'Email and password do not match any records',
+                ], 401);
+            }
+
+            $user = User::where('email', $request->email)->first();
+            return redirect('/objave')->with([
+                'status' => true,
+                'message' => 'User logged in successfully',
+                'token' => $user->createToken("API TOKEN")->plainTextToken
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/')->with([
                 'status' => false,
-                'message' => 'Ne postoji takav korisnik u bazi.',
-            ], 401);
+                'message' => $th->getMessage(),
+            ], 500);
         }
-        return redirect('/objave');
-
-    } catch (\Throwable $th) {
-        return response()->json([
-            'status' => false,
-            'message' => $th->getMessage(),
-        ], 500);
-    }
-}
-
-
-    public function logout() {
-        session()->flush();
-        return redirect('/');
     }
 
-    private function validateLoginRequest(Request $request)
+    public function logout()
     {
-        return Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-    }
-
-    private function validationErrorResponse($errors)
-    {
-        return response()->json([
-            'status' => false,
-            'message' => 'Greška tokom validacije',
-            'errors' => $errors
-        ], 401);
+        return redirect('/ulogujte-se')->with([
+            'status' => true,
+            'message' => 'User logged out',
+            'data' => []
+        ], 200);
     }
 }
