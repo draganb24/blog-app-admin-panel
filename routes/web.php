@@ -12,7 +12,7 @@ Route::get('/objave', [PostController::class, 'index']);
 
 Route::get('/kategorije', [CategoryController::class, 'index']);
 
-Route::get('/kategorije/{slug}', [CategoryController::class, 'index'])->name('category.show');
+Route::get('/kategorije/{slug}', [CategoryController::class, 'show'])->name('category.show');
 
 Route::get('/objave/{slug}', [PostController::class, 'show'])->name('post.show');
 

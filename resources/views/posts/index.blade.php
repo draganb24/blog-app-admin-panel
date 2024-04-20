@@ -15,8 +15,8 @@
                          </a>
                          <div class="card-body">
                              <h3 class="card-title">{{ $post->title }}</h3>
-                             <p class="text-muted">Author: {{ $post->author }}</p>
-                             <p class="text-muted">Created At: {{ $post->created_at }}</p>
+                             <p class="text-muted">Autor: {{ $post->author }}</p>
+                             <p class="text-muted">Kreirano: {{ $post->created_at }}</p>
                          </div>
                      </div>
                  </div>

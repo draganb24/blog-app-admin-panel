@@ -16,14 +16,13 @@
                         </span>
                       </a>
                     </li>
-                    <li class="nav-item dropdown {{ request()->is('kategorije*') ? 'active' : '' }}">
-                      <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
-                        <span class="nav-link-title">
-                          Kategorije
-                        </span>
-                      </a>
-                      <x-categories />
-                    </li>
+                    <li class="nav-item {{ request()->is('kategorije*') ? 'active' : '' }}">
+                        <a class="nav-link" href="/kategorije">
+                          <span class="nav-link-title">
+                            Kategorije
+                          </span>
+                        </a>
+                      </li>
                     <li class="nav-item {{ request()->is('nova-objava*') ? 'active' : '' }}">
                       <a class="nav-link" href="/nova-objava">
                         <span class="nav-link-title">

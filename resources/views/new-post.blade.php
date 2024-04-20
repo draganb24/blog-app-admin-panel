@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Naslov</label>
-                        <input type="text" class="form-control" name="title" placeholder="Your report name">
+                        <input type="text" class="form-control" name="title" placeholder="Naslov objave">
                     </div>
                     <div class="row">
                         <div class="col-lg-8">
@@ -37,16 +37,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="mb-3">
                                 <label class="form-label">Autor</label>
                                 <input type="text" class="form-control" name="author">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="mb-3">
-                                <label class="form-label">Datum</label>
-                                <input type="date" class="form-control" name="date">
                             </div>
                         </div>
                         <div class="col-lg-12">

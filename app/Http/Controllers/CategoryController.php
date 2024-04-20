@@ -27,7 +27,8 @@ class CategoryController extends Controller
 
     public function show(string $slug)
     {
-        return $this->category->where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->firstOrFail();
+        return view('categories.show', compact('category'));
     }
 
     public function update(Request $request, string $slug)
