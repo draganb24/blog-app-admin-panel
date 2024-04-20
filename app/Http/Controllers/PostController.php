@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -27,6 +28,8 @@ class PostController extends Controller
             'content' => 'required|string',
             'author' => 'required|string',
         ]);
+
+        $validatedData['author'] = Auth::user()->name;
 
         $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
         $validatedData['slug'] = $slug;

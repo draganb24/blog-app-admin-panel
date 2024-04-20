@@ -15,6 +15,7 @@ class Post extends Model
         'content',
         'author',
         'slug',
+        'date_of_publishment'
     ];
     use HasFactory;
 }

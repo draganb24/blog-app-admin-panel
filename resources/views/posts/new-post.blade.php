@@ -37,12 +37,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="mb-3">
-                                <label class="form-label">Autor</label>
-                                <input type="text" class="form-control" name="author">
-                            </div>
-                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Datum objave</label>
+                            <input type="date" class="form-control" name="date_of_publishment" value="{{ $post->date_of_publishment ?? '' }}">
+                          </div>
                         <div class="col-lg-12">
                             <div>
                                 <label class="form-label">Sadržaj</label>

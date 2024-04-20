@@ -16,13 +16,6 @@
                         </span>
                       </a>
                     </li>
-                    <li class="nav-item {{ request()->is('nova-objava*') ? 'active' : '' }}">
-                        <a class="nav-link" href="/nova-objava">
-                          <span class="nav-link-title">
-                            Nova objava
-                          </span>
-                        </a>
-                      </li>
                     <li class="nav-item {{ request()->is('kategorije*') ? 'active' : '' }}">
                         <a class="nav-link" href="/kategorije">
                           <span class="nav-link-title">
