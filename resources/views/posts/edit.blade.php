@@ -16,12 +16,11 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="mb-3">
-                                <label class="form-label">Url fotografije</label>
-                                <div class="input-group input-group-flat">
-                                    <span class="input-group-text">
-                                        https://tabler.io/reports/
-                                    </span>
-                                    <input type="text" class="form-control ps-0" value="{{ $post->photo_url }}" autocomplete="off" name="photo_url">
+                                <div class="col-lg-8">
+                                    <div class="mb-3">
+                                        <label class="form-label">Fotografija</label>
+                                        <input type="file" name="image" id="image">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -63,4 +62,18 @@
         </div>
     </form>
 </html>
+@endsection
+@section('scripts')
+<script>
+    const inputElement = document.querySelector('input[id="image"]');
+    const pond = FilePond.create( inputElement );
+    FilePond.setOptions({
+        server: {
+           url: '/upload',
+           headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+           }
+        }
+    });
+</script>
 @endsection

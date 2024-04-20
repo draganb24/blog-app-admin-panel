@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,8 @@ Route::put('uredi/objave/{slug}', [PostController::class, 'update'])->name('post
 Route::get('/nova-objava', function () {
     return view('posts.new-post');
 });
+
+Route::post('upload', [UploadController::class, 'store']);
 
 Route::get('/kategorije', [CategoryController::class, 'index']);
 

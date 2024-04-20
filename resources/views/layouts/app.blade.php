@@ -10,6 +10,7 @@
     <link href="{{ asset('back/dist/css/tabler-payments.min.css?1695847769') }}" rel="stylesheet"/>
     <link href="{{ asset('back/dist/css/tabler-vendors.min.css?1695847769') }}" rel="stylesheet"/>
     <link href="{{ asset('back/dist/css/demo.min.css?1695847769') }}" rel="stylesheet"/>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <style>
         @import url('https://rsms.me/inter/inter.css');
         :root {
@@ -29,6 +30,8 @@
     </div>
     <script src="{{ asset('back/dist/js/tabler.min.js?1695847769') }}" defer></script>
     <script src="{{ asset('back/dist/js/demo.min.js?1695847769') }}" defer></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    @yield('scripts')
 </body>
 
 </html>
