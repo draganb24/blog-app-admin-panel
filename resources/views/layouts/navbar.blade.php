@@ -23,13 +23,6 @@
                           </span>
                         </a>
                       </li>
-                      <li class="nav-item {{ request()->is('potkategorije*') ? 'active' : '' }}">
-                        <a class="nav-link" href="/potkategorije">
-                          <span class="nav-link-title">
-                            Potkategorije
-                          </span>
-                        </a>
-                      </li>
                     @auth
                     <li class="nav-item">
                         <form id="logoutForm" action="{{ route('logout') }}" method="POST">

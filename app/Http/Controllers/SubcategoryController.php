@@ -17,7 +17,7 @@ class SubcategoryController extends Controller
     public function index()
     {
         $subcategories = Subcategory::all();
-        return view('subcategories.index', compact('subcategories'));
+        return $subcategories;
     }
 
     public function store(Request $request)
@@ -27,8 +27,8 @@ class SubcategoryController extends Controller
 
     public function show(string $slug)
     {
-        $subcategory = Subcategory::where('slug', $slug)->firstOrFail();
-        return view('subcategories.show', compact('subcategory'));
+        $subcategory = Subcategory::with('categories')->where('slug', $slug)->firstOrFail();
+        return response()->json(['subcategory' => $subcategory]);
     }
 
     public function update(Request $request, string $slug)
