@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with('subcategories')->get();
         return view('categories.index', compact('categories'));
     }
 
@@ -27,8 +27,8 @@ class CategoryController extends Controller
 
     public function show(string $slug)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
-        return view('categories.show', compact('category'));
+        $category = Category::with('subcategories')->where('slug', $slug)->firstOrFail();
+        return response()->json(['category' => $category]);
     }
 
     public function update(Request $request, string $slug)
