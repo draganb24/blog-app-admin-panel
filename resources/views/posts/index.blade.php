@@ -47,7 +47,7 @@
                                 </div>
                             </td>
                             <td data-label="Title">
-                                <div> {{ strlen($post->content) > 100 ? substr($post->content, 0, 100) . '...' : $post->content }}</div>
+                                <div>{!! strlen($post->content) > 100 ? substr($post->content, 0, 100) . '...' : $post->content !!}</div>
                             </td>
                             <td class="text-secondary" data-label="Role">
                                 {{ $post->author }}
