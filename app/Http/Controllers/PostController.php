@@ -17,7 +17,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->post->all();
+        $posts = $this->post::paginate(5);
         return view('posts.index', compact('posts'));
     }
 
@@ -55,5 +55,11 @@ class PostController extends Controller
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post successfully deleted');
+    }
+
+    public function getByTitle(string $title)
+    {
+        $post = Post::where('title', $title)->firstOrFail();
+        return view('posts.show', compact('post'));
     }
 }

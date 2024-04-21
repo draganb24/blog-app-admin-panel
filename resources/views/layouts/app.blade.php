@@ -11,6 +11,7 @@
     <link href="{{ asset('back/dist/css/tabler-vendors.min.css?1695847769') }}" rel="stylesheet"/>
     <link href="{{ asset('back/dist/css/demo.min.css?1695847769') }}" rel="stylesheet"/>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://rsms.me/inter/inter.css');
         :root {

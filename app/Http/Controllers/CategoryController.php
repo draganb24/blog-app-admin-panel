@@ -18,8 +18,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::with('subcategories')->get();
-        $subcategories = Subcategory::with('categories')->get();
+        $categories = Category::with('subcategories')->paginate(5);
+        $subcategories = Subcategory::with('categories')->paginate(5);
         return view('categories.index', compact('categories', 'subcategories'));
     }
 
