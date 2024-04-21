@@ -47,7 +47,7 @@ class PostController extends Controller
     {
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->update($request->all());
-        return view('posts.edit', compact('post'));
+        return redirect()->route('post.show', ['slug' => $post->slug])->with('success', 'Post successfully updated');
     }
 
     public function destroy(string $slug)
