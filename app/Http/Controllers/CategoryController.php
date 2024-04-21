@@ -37,8 +37,11 @@ class CategoryController extends Controller
     {
         $category = $this->category->where('slug', $slug)->firstOrFail();
         $category->update($request->all());
-        return $category;
+        $category->subcategories()->sync($request->input('subcategories', []));
+        $allSubcategories = Subcategory::all();
+        return view('categories.edit', compact('category', 'allSubcategories'));
     }
+
 
     public function destroy(string $slug)
     {

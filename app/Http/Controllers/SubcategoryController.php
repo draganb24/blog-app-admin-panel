@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,9 @@ class SubcategoryController extends Controller
     {
         $subcategory = $this->subcategory->where('slug', $slug)->firstOrFail();
         $subcategory->update($request->all());
-        return $subcategory;
+        $subcategory->categories()->sync($request->input('categories', []));
+        $allCategories = Category::all();
+        return view('subcategories.edit', compact('subcategory', 'allCategories'));
     }
 
     public function destroy(string $slug)

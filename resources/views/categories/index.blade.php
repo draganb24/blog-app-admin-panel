@@ -62,8 +62,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="#" class="btn">
-                                                Izmjeni
+                                            <a href="{{ route('category.edit.form', $category->slug) }}" class="btn">
+                                                Izmjenite
                                             </a>
                                             <a href="#" class="btn">
                                                 Obriši
@@ -139,8 +139,8 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="#" class="btn">
-                                                Izmjeni
+                                            <a href="{{ route('subcategory.edit.form', $subcategory->slug) }}" class="btn">
+                                                Izmjenite
                                             </a>
                                             <a href="#" class="btn">
                                                 Obriši
