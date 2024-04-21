@@ -44,6 +44,7 @@ class SubcategoryController extends Controller
     public function destroy(string $slug)
     {
         $subcategory = $this->subcategory->where('slug', $slug)->firstOrFail();
-        return $subcategory->delete();
+        $subcategory->delete();
+        return redirect()->route('categories.index')->with('success', 'Post successfully deleted');
     }
 }

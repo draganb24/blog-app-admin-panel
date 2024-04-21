@@ -46,6 +46,7 @@ class CategoryController extends Controller
     public function destroy(string $slug)
     {
         $category = $this->category->where('slug', $slug)->firstOrFail();
-        return $category->delete();
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Post successfully deleted');
     }
 }

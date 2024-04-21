@@ -11,7 +11,7 @@
                     </h2>
                 </div>
                 <div class="col text-end">
-                    <a href="http://localhost:8000/nova-objava" class="btn btn-primary d-none d-sm-inline-block">
+                    <a href="{{ route('post.new') }}" class="btn btn-primary d-none d-sm-inline-block">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
                         Kreirajte novu objavu
                     </a>
@@ -60,9 +60,13 @@
                                     <a href="{{ route('post.edit.form', $post->slug) }}" class="btn">
                                         Izmjenite
                                     </a>
-                                    <a href="#" class="btn">
-                                        Obrišite
-                                    </a>
+                                    <form method="POST" action="{{ route('post.delete', $post->slug) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            Obrišite
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

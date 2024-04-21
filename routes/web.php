@@ -19,10 +19,12 @@ Route::get('uredi/objave/{slug}', [PostController::class, 'update'])->name('post
 
 Route::put('uredi/objave/{slug}', [PostController::class, 'update'])->name('post.update');
 
+Route::delete('obriši/objave/{slug}', [PostController::class, 'destroy'])->name('post.delete');
 
 Route::get('/nova-objava', function () {
     return view('posts.new-post');
-});
+})->name('post.new');
+
 
 Route::post('upload', [UploadController::class, 'store']);
 
@@ -35,6 +37,9 @@ Route::get('uredi/kategorije/{slug}', [CategoryController::class, 'update'])->na
 
 Route::put('uredi/kategorije/{slug}', [CategoryController::class, 'update'])->name('category.update');
 
+Route::delete('obriši/kategorije/{slug}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+
 
 Route::get('/potkategorije', [SubcategoryController::class, 'index']);
 
@@ -43,6 +48,9 @@ Route::get('/potkategorije/{slug}', [SubcategoryController::class, 'show'])->nam
 Route::get('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.edit.form');
 
 Route::put('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.update');
+
+Route::delete('obriši/potkategorije/{slug}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
+
 
 Route::get('/ulogujte-se', function () {
     return view('login');

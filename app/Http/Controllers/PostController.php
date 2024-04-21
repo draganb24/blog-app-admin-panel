@@ -53,6 +53,7 @@ class PostController extends Controller
     public function destroy(string $slug)
     {
         $post = $this->post->where('slug', $slug)->firstOrFail();
-        return $post->delete();
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post successfully deleted');
     }
 }
