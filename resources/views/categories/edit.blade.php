@@ -56,7 +56,7 @@
                                  Nazad
                              </a>
                              <button type="submit" class="btn btn-primary ms-auto">
-                                 Sačuvajte promene
+                                 Sačuvajte izmjene
                              </button>
                          </div>
                      </div>

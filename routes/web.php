@@ -4,7 +4,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UploadController;
-use App\Models\Subcategory;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -39,6 +38,9 @@ Route::put('uredi/kategorije/{slug}', [CategoryController::class, 'update'])->na
 
 Route::delete('obriši/kategorije/{slug}', [CategoryController::class, 'destroy'])->name('category.delete');
 
+Route::get('/nova-kategorija', function () {
+    return view('categories.new-category');
+})->name('category.new');
 
 
 Route::get('/potkategorije', [SubcategoryController::class, 'index']);
@@ -50,6 +52,10 @@ Route::get('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'
 Route::put('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.update');
 
 Route::delete('obriši/potkategorije/{slug}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
+
+Route::get('/nova-potkategorija', function () {
+    return view('subcategories.new-subcategory');
+})->name('subcategory.new');
 
 
 Route::get('/ulogujte-se', function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SubcategoryController extends Controller
 {
@@ -23,7 +24,23 @@ class SubcategoryController extends Controller
 
     public function store(Request $request)
     {
-        return $this->subcategory->create($request->all());
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:subcategories',
+            'categories.*' => 'exists:categories,id',
+        ]);
+
+        $slug = Str::slug($validatedData['name']);
+
+        $subcategory = Subcategory::create([
+            'name' => $validatedData['name'],
+            'slug' => $slug,
+        ]);
+
+        if ($request->has('categories')) {
+            $subcategory->categories()->attach($request->input('categories'));
+        }
+
+        return redirect()->route('categories.index')->with('success', 'Category successfully created');
     }
 
     public function show(string $slug)
