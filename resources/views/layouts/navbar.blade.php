@@ -23,7 +23,6 @@
                           </span>
                         </a>
                       </li>
-                    @auth
                     <li class="nav-item">
                         <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                           @csrf
@@ -34,7 +33,6 @@
                           </button>
                         </form>
                       </li>
-                      @endauth
                   </ul>
                 </div>
               </div>
