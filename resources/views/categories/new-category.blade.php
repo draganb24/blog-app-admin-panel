@@ -1,79 +1,45 @@
 @extends('layouts.app')
 
 @section('content')
-    <!DOCTYPE html>
-    <html>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Dodajte kategoriju</div>
 
-    <head>
-        <style>
-            .page-title {
-                text-align: center;
-                margin-bottom: 20px;
-            }
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('categories.store') }}">
+                            @csrf
 
-            .form-label {
-                font-weight: bold;
-            }
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Naziv</label>
+                                <input id="name" type="text" class="form-control" name="name" placeholder="Naziv kategorije">
+                            </div>
 
-            .form-check-inline {
-                margin-right: 20px;
-            }
-        </style>
-    </head>
+                            <div class="mb-3">
+                                <label class="form-label">Potkategorije:</label>
+                                <div>
+                                    @php
+                                        use App\Models\Subcategory;
+                                        $allSubcategories = Subcategory::all();
+                                    @endphp
+                                    @foreach ($allSubcategories as $subcategory)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="subcategories[]" id="subcategory{{ $subcategory->id }}" value="{{ $subcategory->id }}">
+                                            <label class="form-check-label" for="subcategory{{ $subcategory->id }}">{{ $subcategory->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
 
-    <body>
-        <div class="container-xl">
-            <div class="page-header d-print-none">
-                <div class="row g-2 align-items-center">
-                    <div class="col">
-                        <h2 class="page-title">
-                            Dodajte kategoriju
-                        </h2>
+                            <div class="text-center">
+                                <a href="{{ route('categories.index') }}" class="btn btn-secondary">Nazad</a>
+                                <button type="submit" class="btn btn-primary">Sačuvajte izmjene</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="page-body">
-                <form method="POST" action="http://localhost:8000/api/kategorije">
-                    @csrf
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label class="form-label">Naziv</label>
-                                    <input type="text" class="form-control" name="name"
-                                        placeholder="Naziv kategorije">
-                                </div>
-                                <div class="mb-3">
-                                    <div class="form-label">Potkategorije</div>
-                                    <div>
-                                        @php
-                                            use App\Models\Subcategory;
-                                            $allSubcategories = Subcategory::all();
-                                        @endphp
-                                        @foreach ($allSubcategories as $subcategory)
-                                            <label class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" name="subcategories[]"
-                                                    value="{{ $subcategory->id }}">
-                                                <span class="form-check-label">{{ $subcategory->name }}</span>
-                                            </label>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="{{ route('categories.index') }}" class="btn">
-                                    Nazad
-                                </a>
-                                <button type="submit" class="btn btn-primary ms-auto">
-                                    Sačuvajte izmjene
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-    </body>
-
-    </html>
+    </div>
 @endsection
