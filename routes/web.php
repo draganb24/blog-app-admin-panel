@@ -46,5 +46,7 @@ Route::middleware('admin')->group(function () {
 });
 
 Route::get('/odjavi-se', function () {
+    return view('login');
 })->name('logout');
+
 

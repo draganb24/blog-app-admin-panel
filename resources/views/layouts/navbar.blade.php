@@ -24,7 +24,7 @@
                         </a>
                       </li>
                     <li class="nav-item">
-                        <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                        <form id="logoutForm" action="{{ route('logout.api') }}" method="POST">
                           @csrf
                           <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
                             <span class="nav-link-title">

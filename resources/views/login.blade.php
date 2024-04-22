@@ -8,7 +8,7 @@
                 <div class="card card-md">
                     <div class="card-body">
                         <h2 class="h2 text-center mb-4">Ulogujte se</h2>
-                        <form id="loginForm" action="{{ route('login') }}" method="POST" autocomplete="off">
+                        <form id="loginForm" action="{{ route('login.api') }}" method="POST" autocomplete="off">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Email adresa</label>
