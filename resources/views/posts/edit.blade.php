@@ -56,6 +56,15 @@
 @section('scripts')
     <script src="{{ URL::to('src/js/vendor/tinymce/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'advlist autolink lists link image charmap print preview anchor',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            height: 400,
+            license_key: 'gpl'
+        });
+    </script>
+    <script>
         var editor_config = {
             path_absolute: "{{ URL::to('/') }}/",
             selector: "textarea",

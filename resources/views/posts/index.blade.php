@@ -58,7 +58,10 @@
                             </td>
                             <td>
                                 <div class="btn-list flex-nowrap">
-                                    <a href="{{ route('post.edit.form', $post->slug) }}" class="btn">
+                                    <a href="{{ route('post.show', $post->slug) }}" class="btn">
+                                        Prikažite
+                                    </a>
+                                    <a href="{{ route('post.edit.form', $post->slug) }}" class="btn btn-primary">
                                         Izmjenite
                                     </a>
                                     <form method="POST" action="{{ route('post.delete', $post->slug) }}">

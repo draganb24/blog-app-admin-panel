@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <p class="text-muted mb-3">Author: {{ $post->author }}</p>
                         <p class="text-muted mb-3">Created At: {{ $post->created_at }}</p>
-                        <p>{{ $post->content }}</p>
+                        <p>{!! $post->content !!}</p>
                     </div>
                 </div>
             </div>
