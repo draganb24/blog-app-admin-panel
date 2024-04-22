@@ -10,6 +10,10 @@ Route::get('/ulogujte-se', function () {
     return view('login');
 })->name('login');
 
+Route::get('/', function () {
+    return view('login');
+});
+
 Route::middleware('admin')->group(function () {
     Route::get('/objave', [PostController::class, 'index'])->name('posts.index');
     Route::get('/objave/{slug}', [PostController::class, 'show'])->name('post.show');
@@ -37,9 +41,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/nova-potkategorija', function () {
         return view('subcategories.new-subcategory');
     })->name('subcategory.new');
+
+    Route::post('upload', [UploadController::class, 'store']);
 });
 
 Route::get('/odjavi-se', function () {
 })->name('logout');
 
-Route::post('upload', [UploadController::class, 'store']);
