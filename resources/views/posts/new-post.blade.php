@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-xl">
         <h2 class="page-title">Kreirajte novu objavu</h2><br>
-        <form method="POST" action="route('posts.store')">
+        <form method="POST" action="{{ route('posts.store') }}">
             @csrf
             <div class="row">
                 <div class="col-lg-8">
@@ -18,12 +18,19 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
-                        <label class="form-label">Kategorija</label>
-                        <select class="form-select" name="category">
-                            <option value="1" selected>Private</option>
-                            <option value="2">Public</option>
-                            <option value="3">Hidden</option>
-                        </select>
+                        <label class="form-label">Kategorije:</label>
+                        <div>
+                            @php
+                                use App\Models\Category;
+                                $allCategories = Category::all();
+                            @endphp
+                            @foreach ($allCategories as $category)
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="categories[]" id="category{{ $category->id }}" value="{{ $category->id }}">
+                                    <label class="form-check-label" for="category{{ $category->id }}">{{ $category->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Datum objave</label>

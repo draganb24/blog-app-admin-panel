@@ -27,15 +27,24 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
-            'author' => 'required|string',
+            'author' => 'nullable|string',
+            'categories.*' => 'exists:categories,id',
         ]);
 
-        $validatedData['author'] = Auth::user()->name;
-
+        if (auth()->check()) {
+            $validatedData['author'] = auth()->user()->name;
+        } else {
+            $validatedData['author'] = 'Anonymous';
+        }
         $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
         $validatedData['slug'] = $slug;
         $post = $this->post->create($validatedData);
-        return $post;
+
+        if ($request->has('categories')) {
+            $post->categories()->attach($request->input('categories'));
+        }
+
+        return redirect()->route('posts.index')->with('success', 'Post successfully created');
     }
 
     public function show(string $slug)

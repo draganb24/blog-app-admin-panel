@@ -8,7 +8,7 @@
                     <div class="card-header">Dodajte potkategoriju</div>
 
                     <div class="card-body">
-                        <form method="POST" action="route('subcategories.store')">
+                        <form method="POST" action="{{ route('subcategories.store') }}">
                             @csrf
 
                             <div class="mb-3">
