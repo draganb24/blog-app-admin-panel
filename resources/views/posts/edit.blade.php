@@ -20,12 +20,15 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
-                        <label class="form-label">Kategorija</label>
-                        <select class="form-select" name="category">
-                            <option value="1" {{ $post->category == 1 ? 'selected' : '' }}>Private</option>
-                            <option value="2" {{ $post->category == 2 ? 'selected' : '' }}>Public</option>
-                            <option value="3" {{ $post->category == 3 ? 'selected' : '' }}>Hidden</option>
-                        </select>
+                        <div class="form-label">Kategorije</div>
+                        <div>
+                            @foreach($allCategories as $category)
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="categories[]" value="{{ $category->id }}" {{ $post->categories->contains($category->id) ? 'checked' : '' }}>
+                                <span class="form-check-label">{{ $category->name }}</span>
+                            </label>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Datum objave</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,9 @@ class PostController extends Controller
     {
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->update($request->all());
-        return redirect()->route('post.show', ['slug' => $post->slug])->with('success', 'Post successfully updated');
+        $post->categories()->sync($request->input('categories', []));
+        $allCategories = Category::all();
+        return view('posts.edit', compact('post', 'allCategories'));
     }
 
     public function destroy(string $slug)

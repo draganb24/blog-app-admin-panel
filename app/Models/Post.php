@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use HasFactory;
+
     protected $table = 'posts';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -17,5 +19,9 @@ class Post extends Model
         'slug',
         'date_of_publishment'
     ];
-    use HasFactory;
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'post_category');
+    }
 }

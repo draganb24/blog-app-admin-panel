@@ -20,5 +20,10 @@ class Category extends Model
     {
         return $this->belongsToMany(Subcategory::class);
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'post_category');
+    }
 }
 
