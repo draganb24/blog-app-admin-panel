@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\CurrentlyLoggedInUser;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -23,29 +24,27 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'author' => 'nullable|string',
-            'categories.*' => 'exists:categories,id',
-        ]);
+{
+    $validatedData = $request->validate([
+        'title' => 'required|string',
+        'content' => 'required|string',
+        'categories.*' => 'exists:categories,id',
+    ]);
 
-        if (auth()->check()) {
-            $validatedData['author'] = auth()->user()->name;
-        } else {
-            $validatedData['author'] = 'Anonymous';
-        }
-        $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
-        $validatedData['slug'] = $slug;
-        $post = $this->post->create($validatedData);
+    $logged_in_user = CurrentlyLoggedInUser::latest()->first();
+    $user = User::find($logged_in_user->user_id);
+    $validatedData['author'] = $user->email;
+    $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
+    $validatedData['slug'] = $slug;
 
-        if ($request->has('categories')) {
-            $post->categories()->attach($request->input('categories'));
-        }
+    $post = $this->post->create($validatedData);
 
-        return redirect()->route('posts.index')->with('success', 'Post successfully created');
+    if ($request->has('categories')) {
+        $post->categories()->attach($request->input('categories'));
     }
+
+    return redirect()->route('posts.index')->with('success', 'Post successfully created');
+}
 
     public function show(string $slug)
     {
@@ -59,6 +58,8 @@ class PostController extends Controller
         $post->update($request->all());
         $post->categories()->sync($request->input('categories', []));
         $allCategories = Category::all();
+        $logged_in_user = CurrentlyLoggedInUser::latest()->first();
+        $post->user_id = $logged_in_user->user_id;
         return view('posts.edit', compact('post', 'allCategories'));
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\CurrentlyLoggedInUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,7 @@ class ApiController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
+            CurrentlyLoggedInUser::create(['user_id' => $user->id]);
             return redirect('/objave')->with([
                 'status' => true,
                 'message' => 'User logged in successfully',
@@ -53,6 +55,12 @@ class ApiController extends Controller
 
     public function logout()
     {
+        $lastLoggedInUser = CurrentlyLoggedInUser::latest()->first();
+
+        if ($lastLoggedInUser) {
+            $lastLoggedInUser->delete();
+        }
+
         return redirect('/ulogujte-se')->with([
             'status' => true,
             'message' => 'User logged out',
