@@ -20,9 +20,12 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
-        return [
+
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\Admin::class,
             'optimizeImages' => \Spatie\LaravelImageOptimizer\Middlewares\OptimizeImages::class,
-        ];
+
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
