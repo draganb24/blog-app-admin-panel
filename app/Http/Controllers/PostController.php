@@ -24,27 +24,27 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'title' => 'required|string',
-        'content' => 'required|string',
-        'categories.*' => 'exists:categories,id',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'categories.*' => 'exists:categories,id',
+        ]);
 
-    $logged_in_user = CurrentlyLoggedInUser::latest()->first();
-    $user = User::find($logged_in_user->user_id);
-    $validatedData['author'] = $user->email;
-    $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
-    $validatedData['slug'] = $slug;
+        $logged_in_user = CurrentlyLoggedInUser::latest()->first();
+        $user = User::find($logged_in_user->user_id);
+        $validatedData['author'] = $user->email;
+        $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
+        $validatedData['slug'] = $slug;
 
-    $post = $this->post->create($validatedData);
+        $post = $this->post->create($validatedData);
 
-    if ($request->has('categories')) {
-        $post->categories()->attach($request->input('categories'));
+        if ($request->has('categories')) {
+            $post->categories()->attach($request->input('categories'));
+        }
+
+        return redirect()->route('posts.index')->with('success', 'Post successfully created');
     }
-
-    return redirect()->route('posts.index')->with('success', 'Post successfully created');
-}
 
     public function show(string $slug)
     {
@@ -67,12 +67,6 @@ class PostController extends Controller
     {
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post successfully deleted');
-    }
-
-    public function getByTitle(string $title)
-    {
-        $post = Post::where('title', $title)->firstOrFail();
-        return view('posts.show', compact('post'));
+        return redirect()->route('posts.index')->with('success', 'Objava uspješno obrisana!');
     }
 }

@@ -40,7 +40,7 @@ class SubcategoryController extends Controller
             $subcategory->categories()->attach($request->input('categories'));
         }
 
-        return redirect()->route('categories.index')->with('success', 'Category successfully created');
+        return redirect()->route('categories.index')->with('success', 'Potkategorija uspješno kreirana!');
     }
 
     public function show(string $slug)
@@ -56,12 +56,12 @@ class SubcategoryController extends Controller
         $subcategory->categories()->sync($request->input('categories', []));
         $allCategories = Category::all();
         return view('subcategories.edit', compact('subcategory', 'allCategories'));
-    }
+     }
 
     public function destroy(string $slug)
     {
         $subcategory = $this->subcategory->where('slug', $slug)->firstOrFail();
         $subcategory->delete();
-        return redirect()->route('categories.index')->with('success', 'Post successfully deleted');
+        return redirect()->route('categories.index')->with('success', 'Potkategorija uspješno obrisana!');
     }
 }

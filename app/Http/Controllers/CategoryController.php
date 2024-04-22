@@ -41,7 +41,7 @@ class CategoryController extends Controller
             $category->subcategories()->attach($request->input('subcategories'));
         }
 
-        return redirect()->route('categories.index')->with('success', 'Category successfully created');
+        return redirect()->route('categories.index')->with('success', 'Kategorija uspješno kreirana!');
     }
 
     public function show(string $slug)
@@ -64,6 +64,6 @@ class CategoryController extends Controller
     {
         $category = $this->category->where('slug', $slug)->firstOrFail();
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Post successfully deleted');
+        return redirect()->route('categories.index')->with('success', 'Kategorija uspješno obrisana!');
     }
 }

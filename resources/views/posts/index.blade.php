@@ -4,6 +4,7 @@
 <div class="container">
     <div class="page-header d-print-none">
         <div class="container-xl">
+            @include('shared.success-message')
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">
