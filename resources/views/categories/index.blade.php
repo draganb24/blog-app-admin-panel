@@ -29,7 +29,7 @@
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-vcenter table-mobile-md card-table">
-                        <thead>
+                        <thead style="background-color:beige;">
                             <tr>
                                 <th>Naziv</th>
                                 <th>Potkategorije</th>
@@ -62,7 +62,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="{{ route('category.edit.form', $category->slug) }}" class="btn">
+                                            <a href="{{ route('category.edit.form', $category->slug) }}" class="btn btn-primary">
                                                 Izmjenite
                                             </a>
                                             <form method="POST" action="{{ route('category.delete', $category->slug) }}">
@@ -111,7 +111,7 @@
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-vcenter table-mobile-md card-table">
-                        <thead>
+                        <thead style="background-color:beige;">
                             <tr>
                                 <th>Naziv</th>
                                 <th>Kategorije</th>
@@ -144,7 +144,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="{{ route('subcategory.edit.form', $subcategory->slug) }}" class="btn">
+                                            <a href="{{ route('subcategory.edit.form', $subcategory->slug) }}" class="btn btn-primary">
                                                 Izmjenite
                                             </a>
                                             <form method="POST" action="{{ route('subcategory.delete', $subcategory->slug) }}">

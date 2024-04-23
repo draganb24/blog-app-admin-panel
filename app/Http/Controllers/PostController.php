@@ -63,8 +63,9 @@ class PostController extends Controller
         $post->update($request->all());
         $post->categories()->sync($request->input('categories', []));
         $allCategories = Category::all();
-        $logged_in_user = CurrentlyLoggedInUser::latest()->first();
-        $post->user_id = $logged_in_user->user_id;
+        $image = Image::latest()->first();
+        $post->image_id = $image->id;
+        $post->save();
         return view('posts.edit', compact('post', 'allCategories'));
     }
 

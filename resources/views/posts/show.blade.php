@@ -8,9 +8,16 @@
             <div class="col-md-8">
                 <div class="card">
                     @php
-                        $imageUrl = App\Models\Image::where('id', $post->image_id)->value('image_path');
-                    @endphp
-                    <div class="card-header" style="background-image: url('{{ $imageUrl }}'); height: 300px; background-size: cover; background-position: center;">
+                    if ($post->image) {
+                        $imagePath = asset('storage/' . $post->image->image_path);
+                        $imageUrl = $imagePath;
+                    } else {
+                        $imageUrl = asset('https://placehold.co/600x400');
+                    }
+                @endphp
+                    <img src="{{ $imageUrl }}" alt="Image" class="avatar me-2" style="max-width: 50px;">
+                    <div class="card-header"
+                        style="background-image: url('{{ $imageUrl }}'); height: 300px; background-size: cover; background-position: center;">
                         <h1 class="text-center text-white py-5">{{ $post->title }}</h1>
                     </div>
                     <div class="card-body">

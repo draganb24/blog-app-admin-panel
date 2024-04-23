@@ -30,7 +30,7 @@
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-vcenter table-mobile-md card-table">
-                        <thead>
+                        <thead style="background-color:beige;">
                             <tr>
                                 <th>Naslov</th>
                                 <th>Sadržaj</th>
@@ -49,7 +49,7 @@
                                                     $imagePath = asset('storage/' . $post->image->image_path);
                                                     $imageUrl = $imagePath;
                                                 } else {
-                                                    $imageUrl = asset('path_to_placeholder_image.jpg');
+                                                    $imageUrl = asset('https://placehold.co/50x50');
                                                 }
                                             @endphp
                                             <img src="{{ $imageUrl }}" alt="Image" class="avatar me-2"
@@ -70,7 +70,7 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="{{ route('post.show', $post->slug) }}" class="btn">
+                                            <a href="{{ route('post.show', $post->slug) }}" class="btn btn-secondary">
                                                 Prikažite
                                             </a>
                                             <a href="{{ route('post.edit.form', $post->slug) }}" class="btn btn-primary">
