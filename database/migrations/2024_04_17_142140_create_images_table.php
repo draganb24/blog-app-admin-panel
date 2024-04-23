@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('image_path');
             $table->string('image_caption')->nullable();
+            $table->unsignedBigInteger('post_id')->nullable();
             $table->timestamps();
         });
     }
