@@ -14,13 +14,12 @@ class UploadController extends Controller
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('public/images/tmp/' . $folder, $filename);
+            $path = $file->storeAs('public/images/tmp/' . $folder, $filename);
 
             $image = new Image();
             $image->image_caption = $filename;
-            $image->image_path = $file;
+            $image->image_path = str_replace('public/', '', $path);
             $image->save();
-
             return $image->id;
         }
         return '';
