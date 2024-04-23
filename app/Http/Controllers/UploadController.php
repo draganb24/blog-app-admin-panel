@@ -14,7 +14,7 @@ class UploadController extends Controller
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
             $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('images/tmp/' . $folder, $filename);
+            $file->storeAs('public/images/tmp/' . $folder, $filename);
 
             $image = new Image();
             $image->image_caption = $filename;
