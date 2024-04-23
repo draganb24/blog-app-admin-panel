@@ -3,7 +3,7 @@
 use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('potkategorije')->group(function () {
+Route::prefix('')->group(function () {
     Route::get('/', [SubcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/potkategorije', [SubcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/potkategorije/{slug}', [SubcategoryController::class, 'show'])->name('subcategory.show');

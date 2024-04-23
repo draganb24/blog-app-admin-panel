@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CurrentlyLoggedInUser;
+use App\Models\Image;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,6 +30,7 @@ class PostController extends Controller
             'title' => 'required|string',
             'content' => 'required|string',
             'categories.*' => 'exists:categories,id',
+            'author' => 'string'
         ]);
 
         $logged_in_user = CurrentlyLoggedInUser::latest()->first();
@@ -36,8 +38,11 @@ class PostController extends Controller
         $validatedData['author'] = $user->email;
         $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
         $validatedData['slug'] = $slug;
+        $image = Image::latest()->first();
 
         $post = $this->post->create($validatedData);
+        $post->image_id = $image->id;
+        $post->save();
 
         if ($request->has('categories')) {
             $post->categories()->attach($request->input('categories'));

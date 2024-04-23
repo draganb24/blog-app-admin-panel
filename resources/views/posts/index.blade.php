@@ -39,11 +39,11 @@
                             <td data-label="Name">
                                 <div class="d-flex py-1 align-items-center">
                                     @php
-                                    $imageUrl = App\Models\Image::where('id', $post->image_id)->value('image_path');
+                                    $imageUrl = asset('storage/app/images/tmp/' . $post->folder . '/' . $post->filename);
                                     @endphp
-                                    <span class="avatar me-2" style="background-image: url('{{ $imageUrl }}')"></span>
+                                    <img src="{{ $imageUrl }}" alt="Image" class="avatar me-2" style="max-width: 50px;">
                                     <div class="flex-fill">
-                                        <div class="font-weight-medium"> {{ $post->title }}</div>
+                                        <div class="font-weight-medium">{{ $post->title }}</div>
                                     </div>
                                 </div>
                             </td>
