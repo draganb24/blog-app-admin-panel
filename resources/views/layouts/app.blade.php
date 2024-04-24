@@ -11,6 +11,7 @@
     <link href="{{ asset('back/dist/css/tabler-vendors.min.css?1695847769') }}" rel="stylesheet" />
     <link href="{{ asset('back/dist/css/demo.min.css?1695847769') }}" rel="stylesheet" />
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tabler@1.0.0-alpha.8/dist/css/tabler.min.css" rel="stylesheet">
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -37,6 +38,7 @@
     "></script>
     <script src="{{ asset('back/dist/js/demo.min.js?1695847769') }}" defer></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     @yield('scripts')
 </body>
 
