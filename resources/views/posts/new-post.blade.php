@@ -12,7 +12,7 @@
                         <input type="text" class="form-control" name="title" placeholder="Naslov objave">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Fotografija</label>
+                        <label class="form-label">Naslovna fotografija</label>
                         <input type="file" class="form-control" name="image" id="image">
                     </div>
                 </div>
