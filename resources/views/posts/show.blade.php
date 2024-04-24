@@ -21,8 +21,8 @@
                         <h1 class="text-center text-white py-5">{{ $post->title }}</h1>
                     </div>
                     <div class="card-body">
-                        <p class="text-muted mb-3">Author: {{ $post->author }}</p>
-                        <p class="text-muted mb-3">Created At: {{ $post->created_at }}</p>
+                        <p class="text-muted mb-3">Autor: {{ $post->author }}</p>
+                        <p class="text-muted mb-3">Kreirano: {{ $post->created_at }}</p>
                         <p>{!! $post->content !!}</p>
                     </div>
                 </div>

@@ -20,7 +20,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->post::paginate(5);
+        $posts = $this->post::latest()->paginate(5);
         return view('posts.index', compact('posts'));
     }
 
