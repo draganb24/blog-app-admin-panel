@@ -5,6 +5,7 @@
         <div class="page-header d-print-none">
             <div class="container-xl">
                 @include('shared.success-message')
+                @include('shared.confirm-delete')
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <h2 class="page-title">
@@ -63,13 +64,15 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="{{ route('category.edit.form', $category->slug) }}" class="btn btn-primary">
+                                            <a href="{{ route('category.edit.form', $category->slug) }}"
+                                                class="btn btn-primary">
                                                 Izmjenite
                                             </a>
                                             <form method="POST" action="{{ route('category.delete', $category->slug) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="showConfirmDeleteModal('{{ route('category.delete', $category->slug) }}')">
                                                     Obrišite
                                                 </button>
                                             </form>
@@ -145,13 +148,16 @@
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
-                                            <a href="{{ route('subcategory.edit.form', $subcategory->slug) }}" class="btn btn-primary">
+                                            <a href="{{ route('subcategory.edit.form', $subcategory->slug) }}"
+                                                class="btn btn-primary">
                                                 Izmjenite
                                             </a>
-                                            <form method="POST" action="{{ route('subcategory.delete', $subcategory->slug) }}">
+                                            <form method="POST"
+                                                action="{{ route('subcategory.delete', $subcategory->slug) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="showConfirmDeleteModal('{{ route('subcategory.delete', $subcategory->slug) }}')">
                                                     Obrišite
                                                 </button>
                                             </form>

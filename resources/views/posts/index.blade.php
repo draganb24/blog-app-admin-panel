@@ -5,6 +5,7 @@
         <div class="page-header d-print-none">
             <div class="container-xl">
                 @include('shared.success-message')
+                @include('shared.confirm-delete')
                 <div class="row g-2 align-items-center">
                     <div class="col">
                         <h2 class="page-title">
@@ -79,7 +80,8 @@
                                             <form method="POST" action="{{ route('post.delete', $post->slug) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="showConfirmDeleteModal('{{ route('post.delete', $post->slug) }}')">
                                                     Obrišite
                                                 </button>
                                             </form>
