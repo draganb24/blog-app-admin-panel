@@ -45,16 +45,13 @@
                                 <tr>
                                     <td data-label="Name">
                                         <div class="d-flex py-1 align-items-center">
-                                            @php
-                                                if ($post->image) {
-                                                    $imagePath = asset('storage/' . $post->image->image_path);
-                                                    $imageUrl = $imagePath;
-                                                } else {
-                                                    $imageUrl = asset('https://placehold.co/50x50');
-                                                }
-                                            @endphp
-                                            <img src="{{ $imageUrl }}" alt="Image" class="avatar me-2"
-                                                style="max-width: 50px;">
+                                            @if ($post->image)
+                                                <img src="{{ asset('storage/' . $post->image->thumbnail_path) }}"
+                                                    alt="Thumbnail" class="avatar me-2" style="max-width: 50px;">
+                                            @else
+                                                <img src="{{ asset('https://placehold.co/170x80') }}" alt="Placeholder"
+                                                    class="avatar me-2" style="max-width: 50px;">
+                                            @endif
                                             <div class="flex-fill">
                                                 <div class="font-weight-medium">{{ $post->title }}</div>
                                             </div>
