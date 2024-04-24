@@ -66,7 +66,7 @@
                                         {{ $post->author }}
                                     </td>
                                     <td class="text-secondary" data-label="Role">
-                                        {{ $post->date_of_publishment }}
+                                        {{ substr($post->date_of_publishment, 0, 10) }}
                                     </td>
                                     <td>
                                         <div class="btn-list flex-nowrap">
