@@ -10,6 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "spatie/laravel-image-optimizer": "^1.8",
+        "tinymce/tinymce": "^7.0",
         "unisharp/laravel-filemanager": "^1.8"
     },
     "require-dev": {

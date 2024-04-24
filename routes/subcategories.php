@@ -4,7 +4,6 @@ use App\Http\Controllers\SubcategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('')->group(function () {
-    Route::get('/', [SubcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/potkategorije', [SubcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/potkategorije/{slug}', [SubcategoryController::class, 'show'])->name('subcategory.show');
     Route::get('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.edit.form');

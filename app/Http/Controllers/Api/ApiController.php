@@ -24,7 +24,7 @@ class ApiController extends Controller
             );
 
             if ($validateUser->fails()) {
-                return redirect('/')->with([
+                return redirect('/ulogujte-se')->with([
                     'status' => false,
                     'message' => 'validation error',
                     'errors' => $validateUser->errors()
@@ -32,7 +32,7 @@ class ApiController extends Controller
             }
 
             if (!Auth::attempt($request->only(['email', 'password']))) {
-                return redirect('/')->with([
+                return redirect('/ulogujte-se')->with([
                     'status' => false,
                     'message' => 'Email and password do not match any records',
                 ], 401);
@@ -46,7 +46,7 @@ class ApiController extends Controller
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ]);
         } catch (\Throwable $th) {
-            return redirect('/')->with([
+            return redirect('/ulogujte-se')->with([
                 'status' => false,
                 'message' => $th->getMessage(),
             ], 500);
