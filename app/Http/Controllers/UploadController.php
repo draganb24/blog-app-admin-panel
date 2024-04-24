@@ -25,8 +25,6 @@ class UploadController extends Controller
 
             $fileImage->save(storage_path('app/' . $path));
 
-            $fileImage->save(storage_path('app/' . $path));
-
             $image = new Image();
             $image->image_caption = $filename;
             $image->image_path = str_replace('public/', '', $path);
