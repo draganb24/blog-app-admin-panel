@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Image;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image as ImageIntervention;
@@ -40,7 +41,38 @@ class UploadController extends Controller
 
             return $image->id;
         }
+        if ($request->hasFile('images')) {
+            $images = [];
 
-        return '';
+            foreach ($request->file('images') as $file) {
+                $images = ImageIntervention::make($file);
+                $images->resize(500, 500);
+
+                $filename = $file->getClientOriginalName();
+                $folder = uniqid() . '-' . now()->timestamp;
+                $originalPath = 'public/images/tmp/gallery' . $folder . '/' . $filename;
+                $thumbnailPath = 'public/images/tmp/gallery' . $folder . '/thumbnail_' . $filename;
+
+                Storage::makeDirectory(dirname($originalPath));
+                Storage::makeDirectory(dirname($thumbnailPath));
+
+                $images->save(storage_path('app/' . $originalPath));
+
+                $image = new Image();
+                $image->image_caption = $filename;
+
+                $lastPostId = Post::latest()->value('id');
+                $post_id = $lastPostId + 1;
+                $image->$post_id;
+
+                $image->image_path = str_replace('public/', '', $originalPath);
+                $image->save();
+
+                $images[] = $image->id;
+            }
+
+
+            return '';
+        }
     }
 }

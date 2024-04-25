@@ -13,7 +13,6 @@ class Post extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'title',
-        'image_id',
         'content',
         'author',
         'slug',
@@ -28,5 +27,9 @@ class Post extends Model
     public function image()
     {
         return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'post_id');
     }
 }

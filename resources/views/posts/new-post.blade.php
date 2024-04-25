@@ -15,6 +15,10 @@
                         <label class="form-label">Naslovna fotografija</label>
                         <input type="file" class="form-control" name="image" id="image">
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Galerija slika</label>
+                        <input type="file" class="form-control" name="images[]" id="images" multiple>
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">
