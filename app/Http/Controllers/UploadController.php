@@ -45,7 +45,7 @@ class UploadController extends Controller
             $images = [];
 
             foreach ($request->file('images') as $file) {
-                $images = ImageIntervention::make($file);
+                $images = ImageIntervention::read($file);
                 $images->resize(500, 500);
 
                 $filename = $file->getClientOriginalName();
