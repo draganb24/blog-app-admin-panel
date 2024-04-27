@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Document;
 use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -73,6 +74,22 @@ class UploadController extends Controller
 
 
             return '';
+        }
+        if ($request->hasFile('documents')) {
+            foreach ($request->file('documents') as $file) {
+                $filename = $file->getClientOriginalName();
+                $folder = uniqid() . '-' . now()->timestamp;
+                $path = 'public/documents/' . $folder . '/' . $filename;
+
+                Storage::makeDirectory(dirname($path));
+                $file->storeAs(dirname($path), $filename);
+
+                $document = new Document();
+                $document->document_title = $filename;
+                $document->document_path = str_replace('public/', '', $path);
+                $document->save();
+
+            }
         }
     }
 }

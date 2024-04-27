@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Document extends Model
 {
+    use HasFactory;
+
     protected $table = 'documents';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -14,5 +16,9 @@ class Document extends Model
         'document_title',
         'post_id',
     ];
-    use HasFactory;
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }

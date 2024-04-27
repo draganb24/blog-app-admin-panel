@@ -42,12 +42,16 @@ class PostController extends Controller
 
         $post = $this->post->create($validatedData);
         $post->image_id = $image->id;
-        $post->save();
 
         if ($request->has('categories')) {
             $post->categories()->attach($request->input('categories'));
         }
 
+        if ($request->has('documents')) {
+            $post->documents()->attach($request->input('documents'));
+        }
+
+        $post->save();
         return redirect()->route('posts.index')->with('success', 'Post successfully created');
     }
 
@@ -62,6 +66,7 @@ class PostController extends Controller
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->update($request->all());
         $post->categories()->sync($request->input('categories', []));
+        $post->documents()->sync($request->input('documents', []));
         $allCategories = Category::all();
         $image = Image::latest()->first();
         $post->image_id = $image->id;

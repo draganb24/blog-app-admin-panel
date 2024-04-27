@@ -19,6 +19,10 @@
                         <label class="form-label">Galerija slika</label>
                         <input type="file" class="form-control" name="images[]" id="images" multiple>
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dokumenti</label>
+                        <input type="file" class="form-control" name="documents[]" id="documents" multiple>
+                    </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="mb-3">

@@ -8,13 +8,13 @@
             <div class="col-md-8">
                 <div class="card">
                     @php
-                    if ($post->image) {
-                        $imagePath = asset('storage/' . $post->image->image_path);
-                        $imageUrl = $imagePath;
-                    } else {
-                        $imageUrl = asset('https://placehold.co/600x400');
-                    }
-                @endphp
+                        if ($post->image) {
+                            $imagePath = asset('storage/' . $post->image->image_path);
+                            $imageUrl = $imagePath;
+                        } else {
+                            $imageUrl = asset('https://placehold.co/600x400');
+                        }
+                    @endphp
                     <img src="{{ $imageUrl }}" alt="Image" class="avatar me-2" style="max-width: 50px;">
                     <div class="card-header"
                         style="background-image: url('{{ $imageUrl }}'); height: 300px; background-size: cover; background-position: center;">
@@ -24,9 +24,27 @@
                         <p class="text-muted mb-3">Autor: {{ $post->author }}</p>
                         <p class="text-muted mb-3">Kreirano: {{ $post->created_at }}</p>
                         <p>{!! $post->content !!}</p>
+                        <h2>Dokumenti uz objavu</h2>
+                        @php
+                            $postDocuments = DB::table('post_document')
+                                ->where('post_id', $post->id)
+                                ->select('post_document.document_id')
+                                ->get();
+                        @endphp
+
+                        @if ($postDocuments->isNotEmpty())
+                            <ul>
+                                @foreach ($postDocuments as $document)
+                                    <li>{{ $document->document_id }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <p>Nema dokumenata vezanih za objavu.</p>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
