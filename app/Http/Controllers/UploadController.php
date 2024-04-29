@@ -15,6 +15,7 @@ class UploadController extends Controller
 
     public function store(Request $request)
     {
+
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $titleImage = ImageIntervention::read($file);
@@ -43,33 +44,28 @@ class UploadController extends Controller
             return $image->id;
         }
         if ($request->hasFile('images')) {
-            $images = [];
+            $images = $request->file('images');
 
-            foreach ($request->file('images') as $file) {
-                $images = ImageIntervention::read($file);
-                $images->resize(500, 500);
-
-                $filename = $file->getClientOriginalName();
-                $folder = uniqid() . '-' . now()->timestamp;
-                $originalPath = 'public/images/tmp/gallery' . $folder . '/' . $filename;
-                $thumbnailPath = 'public/images/tmp/gallery' . $folder . '/thumbnail_' . $filename;
+            foreach ($images as $key => $image) {
+                $filename = now()->timestamp;
+                $folder = uniqid();
+                $originalPath = 'public/images/gallery/';
+                $originalPathFileName = $originalPath . $folder . '/' . $filename;
 
                 Storage::makeDirectory(dirname($originalPath));
-                Storage::makeDirectory(dirname($thumbnailPath));
+                $image->storeAs($originalPathFileName);
 
-                $images->save(storage_path('app/' . $originalPath));
+                // $image = new Image();
+                // $image->image_caption = $filename;
 
-                $image = new Image();
-                $image->image_caption = $filename;
+                // $lastPostId = Post::latest()->value('id');
+                // $post_id = $lastPostId + 1;
+                // $image->$post_id;
 
-                $lastPostId = Post::latest()->value('id');
-                $post_id = $lastPostId + 1;
-                $image->$post_id;
+                // $image->image_path = str_replace('public/', '', $originalPath);
+                // $image->save();
 
-                $image->image_path = str_replace('public/', '', $originalPath);
-                $image->save();
-
-                $images[] = $image->id;
+                // $images[] = $image->id;
             }
 
 
