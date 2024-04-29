@@ -3,7 +3,7 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('')->group(function () {
+Route::middleware('admin')->prefix('')->group(function () {
     Route::get('/objave', [PostController::class, 'index'])->name('posts.index');
     Route::get('/objave/{slug}', [PostController::class, 'show'])->name('post.show');
     Route::get('uredi/objave/{slug}', [PostController::class, 'update'])->name('post.edit.form');

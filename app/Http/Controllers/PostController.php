@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CurrentlyLoggedInUser;
+use App\Models\Document;
 use App\Models\Image;
 use App\Models\Post;
 use App\Models\User;
@@ -48,7 +49,14 @@ class PostController extends Controller
         }
 
         if ($request->has('documents')) {
-            $post->documents()->attach($request->input('documents'));
+            // $post->documents()->attach($request->input('documents'));
+            $postId = $post->id; // Assuming $post is the post being created or updated
+
+            // Fetch documents that have the same post_id as the post being created or updated
+            $documents = Document::where('post_id', $postId)->get();
+
+            // Attach these documents to the post
+            $post->documents()->attach($documents);
         }
 
         $post->save();
