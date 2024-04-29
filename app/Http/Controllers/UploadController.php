@@ -72,18 +72,20 @@ class UploadController extends Controller
             return '';
         }
         if ($request->hasFile('documents')) {
-            foreach ($request->file('documents') as $file) {
-                $filename = $file->getClientOriginalName();
-                $folder = uniqid() . '-' . now()->timestamp;
-                $path = 'public/documents/' . $folder . '/' . $filename;
+            $documents = $request->file('documents');
+            foreach ($documents as $key => $document) {
+            $filename = now()->timestamp;
+            $folder = uniqid();
+            $originalPath = 'public/documents/';
+            $originalPathFileName = $originalPath . $folder . '/' . $filename;
 
-                Storage::makeDirectory(dirname($path));
-                $file->storeAs(dirname($path), $filename);
+            Storage::makeDirectory(dirname($originalPath));
+            $document->storeAs($originalPathFileName);
 
-                $document = new Document();
-                $document->document_title = $filename;
-                $document->document_path = str_replace('public/', '', $path);
-                $document->save();
+                // $document = new Document();
+                // $document->document_title = $filename;
+                // $document->document_path = str_replace('public/', '', $path);
+                // $document->save();
 
             }
         }
