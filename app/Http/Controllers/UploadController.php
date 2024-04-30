@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Laravel\Facades\Image as ImageIntervention;
 
 
@@ -18,16 +19,18 @@ class UploadController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
+
             $titleImage = ImageIntervention::read($file);
             $titleImage->resize(1024, 768);
 
             $thumbnail = clone $titleImage;
             $thumbnail->resize(170, 80);
 
-            $filename = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
-            $originalPath = 'public/images/tmp/' . $folder . '/' . $filename;
-            $thumbnailPath = 'public/images/tmp/' . $folder . '/thumbnail_' . $filename;
+            $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
+            $folder = uniqid();
+
+            $originalPath = 'public/images/' . $folder . '/' . $filename;
+            $thumbnailPath = 'public/images/' . $folder . '/thumbnail_' . $filename;
 
             Storage::makeDirectory(dirname($originalPath));
             Storage::makeDirectory(dirname($thumbnailPath));
@@ -40,20 +43,24 @@ class UploadController extends Controller
             $image->image_path = str_replace('public/', '', $originalPath);
             $image->thumbnail_path = str_replace('public/', '', $thumbnailPath);
             $image->save();
-
             return $image->id;
         }
         if ($request->hasFile('images')) {
             $images = $request->file('images');
-
             foreach ($images as $key => $image) {
-                $filename = now()->timestamp;
+                $processedImage = ImageIntervention::read($image);
+                $processedImage->resize(500, 500);
+
+                $filename = Str::random(20) . '.' . $image->getClientOriginalExtension();
                 $folder = uniqid();
-                $originalPath = 'public/images/gallery/';
-                $originalPathFileName = $originalPath . $folder . '/' . $filename;
+                $originalPath = 'public/images/gallery/' . $folder . '/' . $filename;
+                $thumbnailPath = 'public/images/gallery/' . $folder . '/thumbnail_' . $filename;
 
                 Storage::makeDirectory(dirname($originalPath));
-                $image->storeAs($originalPathFileName);
+                Storage::makeDirectory(dirname($thumbnailPath));
+
+                $image->storeAs($originalPath);
+
 
                 // $image = new Image();
                 // $image->image_caption = $filename;
@@ -72,22 +79,20 @@ class UploadController extends Controller
             return '';
         }
         if ($request->hasFile('documents')) {
-            $documents = $request->file('documents');
-            foreach ($documents as $key => $document) {
-            $filename = now()->timestamp;
-            $folder = uniqid();
-            $originalPath = 'public/documents/';
-            $originalPathFileName = $originalPath . $folder . '/' . $filename;
+            foreach ($request->file('documents') as $file) {
+                $filename = Str::random(20) . '.' . $file->getClientOriginalExtension();
+                $folder = uniqid();
 
-            Storage::makeDirectory(dirname($originalPath));
-            $document->storeAs($originalPathFileName);
+                $path = 'public/documents/' . $folder . '/' . $filename;
+                Storage::makeDirectory(dirname($path));
+                $file->storeAs(dirname($path), $filename);
 
                 // $document = new Document();
                 // $document->document_title = $filename;
                 // $document->document_path = str_replace('public/', '', $path);
                 // $document->save();
-
             }
         }
     }
 }
+
