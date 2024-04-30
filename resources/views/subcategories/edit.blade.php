@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container-xl">
+        @include('shared.success-message')
         <div class="page-header d-print-none">
             <div class="row g-2 align-items-center">
                 <div class="col">
@@ -27,13 +28,13 @@
                                 <div class="form-label">Kategorije</div>
                                 <div>
                                     @foreach ($allCategories as $category)
-                                        <label class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" name="categories[]"
-                                                value="{{ $category->id }}"
-                                                {{ $subcategory->categories->contains($category->id) ? 'checked' : '' }}>
-                                            <span class="form-check-label">{{ $category->name }}</span>
-                                        </label>
-                                    @endforeach
+                                    <label class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="categories[]"
+                                            value="{{ $category->id }}"
+                                            {{ $subcategory->categories->contains($category->id) ? 'checked' : '' }}>
+                                        <span class="form-check-label">{{ $category->name }}</span>
+                                    </label>
+                                @endforeach
                                 </div>
                             </div>
                         </div>

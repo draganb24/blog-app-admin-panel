@@ -51,11 +51,11 @@ class SubcategoryController extends Controller
 
     public function update(Request $request, string $slug)
     {
-        $subcategory = $this->subcategory->where('slug', $slug)->firstOrFail();
-        $subcategory->update($request->all());
+        $subcategory = Subcategory::with('categories')->where('slug', $slug)->firstOrFail();
         $subcategory->categories()->sync($request->input('categories', []));
         $allCategories = Category::all();
-        return view('subcategories.edit', compact('subcategory', 'allCategories'));
+        $subcategory->update($request->all());
+        return view('subcategories.edit', compact('subcategory', 'allCategories'))->with('success', 'Potkategorija uspješno izmijenjena!');;
      }
 
     public function destroy(string $slug)

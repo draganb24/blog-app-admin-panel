@@ -52,11 +52,11 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $slug)
     {
-        $category = $this->category->where('slug', $slug)->firstOrFail();
-        $category->update($request->all());
+        $category = Category::with('subcategories')->where('slug', $slug)->firstOrFail();
         $category->subcategories()->sync($request->input('subcategories', []));
         $allSubcategories = Subcategory::all();
-        return view('categories.edit', compact('category', 'allSubcategories'));
+        $category->update($request->all());
+        return view('categories.edit', compact('category', 'allSubcategories'))->with('success', 'Kategorija uspješno izmijenjena!');
     }
 
 
