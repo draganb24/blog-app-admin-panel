@@ -24,7 +24,6 @@
                         <p class="text-muted mb-3">Autor: {{ $post->author }}</p>
                         <p class="text-muted mb-3">Kreirano: {{ $post->created_at }}</p>
                         <p>{!! $post->content !!}</p>
-                        <h2>Dokumenti uz objavu</h2>
                         @php
                             $postDocuments = DB::table('post_document')
                                 ->where('post_id', $post->id)
@@ -33,13 +32,12 @@
                         @endphp
 
                         @if ($postDocuments->isNotEmpty())
+                        <h2>Dokumenti uz objavu</h2>
                             <ul>
                                 @foreach ($postDocuments as $document)
                                     <li>{{ $document->document_id }}</li>
                                 @endforeach
                             </ul>
-                        @else
-                            <p>Nema dokumenata vezanih za objavu.</p>
                         @endif
                     </div>
                 </div>
