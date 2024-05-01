@@ -25,17 +25,16 @@
                         <p class="text-muted mb-3">Kreirano: {{ $post->created_at }}</p>
                         <p>{!! $post->content !!}</p>
                         @php
-                            $postDocuments = DB::table('post_document')
+                            $documents = DB::table('documents')
                                 ->where('post_id', $post->id)
-                                ->select('post_document.document_id')
+                                ->select('document_title')
                                 ->get();
                         @endphp
-
-                        @if ($postDocuments->isNotEmpty())
-                        <h2>Dokumenti uz objavu</h2>
+                        @if ($documents->isNotEmpty())
+                            <h2>Dokumenti uz objavu</h2>
                             <ul>
-                                @foreach ($postDocuments as $document)
-                                    <li>{{ $document->document_id }}</li>
+                                @foreach ($documents as $document)
+                                    <li>{{ $document->document_title }}</li>
                                 @endforeach
                             </ul>
                         @endif
