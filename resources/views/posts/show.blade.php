@@ -25,6 +25,22 @@
                         <p class="text-muted mb-3">Kreirano: {{ $post->created_at }}</p>
                         <p>{!! $post->content !!}</p>
                         @php
+                            $galleryImages = DB::table('images')
+                                ->where('post_id', $post->id)
+                                ->get();
+                        @endphp
+                        @if ($galleryImages->isNotEmpty())
+                            <h2>Galerija</h2>
+                            <div class="row">
+                                @foreach ($galleryImages as $image)
+                                    <div class="col-md-3">
+                                        <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image"
+                                            class="img-fluid">
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                        @php
                             $documents = DB::table('documents')
                                 ->where('post_id', $post->id)
                                 ->select('document_title')

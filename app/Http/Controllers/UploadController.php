@@ -62,18 +62,12 @@ class UploadController extends Controller
 
                 $image->storeAs($originalPath);
 
+                $image = new Image();
+                $image->image_caption = $filename;
 
-                // $image = new Image();
-                // $image->image_caption = $filename;
+                $image->image_path = str_replace('public/', '', $originalPath);
+                $image->save();
 
-                // $lastPostId = Post::latest()->value('id');
-                // $post_id = $lastPostId + 1;
-                // $image->$post_id;
-
-                // $image->image_path = str_replace('public/', '', $originalPath);
-                // $image->save();
-
-                // $images[] = $image->id;
             }
 
 
