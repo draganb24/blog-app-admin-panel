@@ -42,6 +42,7 @@ class UploadController extends Controller
             $image->image_caption = $filename;
             $image->image_path = str_replace('public/', '', $originalPath);
             $image->thumbnail_path = str_replace('public/', '', $thumbnailPath);
+            $image->is_title = true;
             $image->save();
             return $image->id;
         }
@@ -90,8 +91,6 @@ class UploadController extends Controller
                 $document = new Document();
                 $document->document_title = $filename;
                 $document->document_path = str_replace('public/', '', $path);
-                // $lastPostId = Post::latest()->value('id');
-                // $document->post_id = $lastPostId + 1;
                 $document->save();
             }
         }

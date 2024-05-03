@@ -37,10 +37,11 @@ class PostController extends Controller
         $logged_in_user = CurrentlyLoggedInUser::latest()->first();
         $user = User::find($logged_in_user->user_id);
         $validatedData['author'] = $user->email;
+
         $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
         $validatedData['slug'] = $slug;
-        $image = Image::latest()->first();
 
+        $image = Image::where('is_title', true)->latest()->first();
         $post = $this->post->create($validatedData);
         $post->image_id = $image->id;
 
