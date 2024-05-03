@@ -82,9 +82,18 @@ class PostController extends Controller
         $post = $this->post->where('slug', $slug)->firstOrFail();
         $post->update($request->all());
         $post->categories()->sync($request->input('categories', []));
-        $post->documents()->sync($request->input('documents', []));
+
+        if ($request->has('documents')) {
+            $documents = Document::whereNull('post_id')->get();
+
+            foreach ($documents as $document) {
+                $document->post_id = $post->id;
+                $document->save();
+            }
+        }
+
         $allCategories = Category::all();
-        $image = Image::latest()->first();
+        $image = Image::where('is_title', true)->latest()->first();
         $post->image_id = $image->id;
         $post->save();
         return view('posts.edit', compact('post', 'allCategories'));

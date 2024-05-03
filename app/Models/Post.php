@@ -34,8 +34,4 @@ class Post extends Model
         return $this->hasMany(Image::class, 'id', 'image_id');
     }
 
-    public function documents()
-    {
-        return $this->belongsToMany(Document::class, 'post_document');
-    }
 }
