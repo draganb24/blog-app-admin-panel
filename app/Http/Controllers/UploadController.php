@@ -90,8 +90,8 @@ class UploadController extends Controller
                 $document = new Document();
                 $document->document_title = $filename;
                 $document->document_path = str_replace('public/', '', $path);
-                $lastPostId = Post::latest()->value('id');
-                $document->post_id = $lastPostId + 1;
+                // $lastPostId = Post::latest()->value('id');
+                // $document->post_id = $lastPostId + 1;
                 $document->save();
             }
         }

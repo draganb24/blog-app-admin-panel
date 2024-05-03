@@ -49,14 +49,12 @@ class PostController extends Controller
         }
 
         if ($request->has('documents')) {
-            // $post->documents()->attach($request->input('documents'));
-            $postId = $post->id; // Assuming $post is the post being created or updated
+            $documents = Document::whereNull('post_id')->get();
 
-            // Fetch documents that have the same post_id as the post being created or updated
-            $documents = Document::where('post_id', $postId)->get();
-
-            // Attach these documents to the post
-            $post->documents()->attach($documents);
+            foreach ($documents as $document) {
+                $document->post_id = $post->id;
+                $document->save();
+            }
         }
 
         $post->save();
