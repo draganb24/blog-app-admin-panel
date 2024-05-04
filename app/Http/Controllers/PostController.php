@@ -41,15 +41,20 @@ class PostController extends Controller
         $slug = strtolower(str_replace(' ', '-', $validatedData['title']));
         $validatedData['slug'] = $slug;
 
-        $image = Image::where('is_title', true)->latest()->first();
         $post = $this->post->create($validatedData);
-        $post->image_id = $image->id;
+        $post->date_of_publishment = request('date_of_publishment') ?? now()->toDateString();
 
-        if ($request->has('categories')) {
+        if ($request->has('image') && !empty($request->input('image'))) {
+            $image = Image::where('is_title', true)->latest()->first();
+            $post->image_id = $image->id;
+            $image->post_id = $post->id;
+        }
+
+        if ($request->has('categories') && !empty($request->input('categories'))) {
             $post->categories()->attach($request->input('categories'));
         }
 
-        if ($request->has('images')) {
+        if ($request->has('images') && !empty($request->input('images'))) {
             $images = Image::whereNull('post_id')->where('is_title', false)->get();
 
             foreach ($images as $image) {
@@ -58,7 +63,7 @@ class PostController extends Controller
             }
         }
 
-        if ($request->has('documents')) {
+        if ($request->has('documents') && !empty($request->input('documents'))) {
             $documents = Document::whereNull('post_id')->get();
 
             foreach ($documents as $document) {
@@ -83,7 +88,15 @@ class PostController extends Controller
         $post->update($request->all());
         $post->categories()->sync($request->input('categories', []));
 
-        if ($request->has('documents')) {
+        $post->date_of_publishment = request('date_of_publishment') ?? now()->toDateString();
+
+        if ($request->has('image') && !empty($request->input('image'))) {
+            $image = Image::where('is_title', true)->latest()->first();
+            $post->image_id = $image->id;
+            $image->post_id = $post->id;
+        }
+
+        if ($request->has('documents') && !empty($request->input('documents'))) {
             $documents = Document::whereNull('post_id')->get();
 
             foreach ($documents as $document) {
@@ -93,8 +106,6 @@ class PostController extends Controller
         }
 
         $allCategories = Category::all();
-        $image = Image::where('is_title', true)->latest()->first();
-        $post->image_id = $image->id;
         $post->save();
         return view('posts.edit', compact('post', 'allCategories'));
     }
