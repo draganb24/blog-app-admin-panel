@@ -27,6 +27,8 @@ Route::post('/objave', [PostController::class, 'store'])->name('posts.store');
 
 
 Route::apiResource('/dokumenti', DocumentController::class);
+Route::put('/api/dokumenti/{document}', [DocumentController::class, 'update']);
+
 
 
 

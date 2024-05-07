@@ -54,7 +54,7 @@
                     @php
                         $documents = DB::table('documents')
                             ->where('post_id', $post->id)
-                            ->select('document_title')
+                            ->select('id','document_title')
                             ->get();
                     @endphp
                     <div class="mb-3">
@@ -65,10 +65,10 @@
                                 @foreach ($documents as $document)
                                     <div class="document-item d-flex justify-content-between align-items-center mb-2">
                                         <span class="flex-grow-1">{{ $document->document_title }}</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-trash cursor-pointer">
+                                        <svg id="deleteDocument{{ $document->id }}" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-trash cursor-pointer delete-document">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M4 7l16 0" />
                                             <path d="M10 11l0 6" />
@@ -122,4 +122,32 @@
 @section('scripts')
     @include('shared.tinymce-config')
     @include('shared.file-pond-config')
+    <script>
+        document.querySelectorAll('.delete-document').forEach(item => {
+            item.addEventListener('click', event => {
+                const documentId = item.id.replace('deleteDocument', '');
+                fetch(`/api/dokumenti/${documentId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        post_id: 0
+                    })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        item.closest('.document-item').remove();
+                    } else {
+                        console.error('Failed to update post_id');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+
+
 @endsection
