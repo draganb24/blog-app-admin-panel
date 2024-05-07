@@ -73,7 +73,7 @@ class PostController extends Controller
         }
 
         $post->save();
-        return redirect()->route('posts.index')->with('success', 'Post successfully created');
+        return redirect()->route('posts.index')->with('success', 'Objava uspješno kreirana!');
     }
 
     public function show(string $slug)
@@ -82,11 +82,18 @@ class PostController extends Controller
         return view('posts.show', compact('post'));
     }
 
+    public function edit(Request $request, string $slug)
+    {
+        $post = Post::with('categories')->where('slug', $slug)->firstOrFail();
+        $allCategories = Category::all();
+        return view('posts.edit', compact('post', 'allCategories'));
+    }
+
     public function update(Request $request, string $slug)
     {
-        $post = $this->post->where('slug', $slug)->firstOrFail();
-        $post->update($request->all());
+        $post = Post::with('categories')->where('slug', $slug)->firstOrFail();
         $post->categories()->sync($request->input('categories', []));
+        $post->update($request->all());
 
         $post->date_of_publishment = request('date_of_publishment') ?? now()->toDateString();
 
@@ -105,9 +112,8 @@ class PostController extends Controller
             }
         }
 
-        $allCategories = Category::all();
         $post->save();
-        return view('posts.edit', compact('post', 'allCategories'));
+        return redirect()->route('posts.index')->with('success', 'Objava uspješno izmijenjena!');
     }
 
     public function destroy(string $slug)
