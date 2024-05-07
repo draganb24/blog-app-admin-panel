@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('admin')->prefix('')->group(function () {
     Route::get('/potkategorije', [SubcategoryController::class, 'index'])->name('subcategories.index');
     Route::get('/potkategorije/{slug}', [SubcategoryController::class, 'show'])->name('subcategory.show');
-    Route::get('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.edit.form');
+    Route::get('uredi/potkategorije/{slug}', [SubcategoryController::class, 'edit'])->name('subcategory.edit.form');
     Route::put('uredi/potkategorije/{slug}', [SubcategoryController::class, 'update'])->name('subcategory.update');
     Route::delete('obriši/potkategorije/{slug}', [SubcategoryController::class, 'destroy'])->name('subcategory.delete');
     Route::get('/nova-potkategorija', function () {

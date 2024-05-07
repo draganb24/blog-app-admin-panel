@@ -50,13 +50,20 @@ class CategoryController extends Controller
         return response()->json(['category' => $category]);
     }
 
+    public function edit(Request $request, string $slug){
+        $category = Category::with('subcategories')->where('slug', $slug)->firstOrFail();
+        $category->subcategories()->sync($request->input('subcategories', []));
+        $allSubcategories = Subcategory::all();
+        return view('categories.edit', compact('category', 'allSubcategories'))->with('success', 'Kategorija uspješno izmijenjena!');
+
+    }
+
     public function update(Request $request, string $slug)
     {
         $category = Category::with('subcategories')->where('slug', $slug)->firstOrFail();
         $category->subcategories()->sync($request->input('subcategories', []));
-        $allSubcategories = Subcategory::all();
         $category->update($request->all());
-        return view('categories.edit', compact('category', 'allSubcategories'))->with('success', 'Kategorija uspješno izmijenjena!');
+        return redirect()->route('categories.index')->with('success', 'Kategorija uspješno izmijenjena!');
     }
 
 
