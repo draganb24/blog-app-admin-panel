@@ -20,6 +20,7 @@
                     @php
                         $galleryImages = DB::table('images')
                             ->where('post_id', $post->id)
+                            ->select('id', 'image_caption', 'image_path')
                             ->get();
                     @endphp
                     <div class="mb-3">
@@ -34,10 +35,10 @@
                                                 class="img-fluid" width="50" height="50">
                                             <span>{{ $image->image_caption }}</span>
                                         </div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="icon icon-tabler icons-tabler-outline icon-tabler-trash cursor-pointer">
+                                        <svg id="deleteImage{{ $image->id }}" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="icon icon-tabler icons-tabler-outline icon-tabler-trash cursor-pointer delete-image">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path d="M4 7l16 0" />
                                             <path d="M10 11l0 6" />
@@ -54,7 +55,7 @@
                     @php
                         $documents = DB::table('documents')
                             ->where('post_id', $post->id)
-                            ->select('id','document_title')
+                            ->select('id', 'document_title')
                             ->get();
                     @endphp
                     <div class="mb-3">
@@ -127,27 +128,51 @@
             item.addEventListener('click', event => {
                 const documentId = item.id.replace('deleteDocument', '');
                 fetch(`/api/dokumenti/${documentId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        post_id: 0
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            post_id: 0
+                        })
                     })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        item.closest('.document-item').remove();
-                    } else {
-                        console.error('Failed to update post_id');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                    .then(response => {
+                        if (response.ok) {
+                            item.closest('.document-item').remove();
+                        } else {
+                            console.error('Failed to update post_id');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
             });
         });
     </script>
-
-
+    <script>
+        document.querySelectorAll('.delete-image').forEach(item => {
+            item.addEventListener('click', event => {
+                const imageId = item.id.replace('deleteImage', '');
+                fetch(`/api/fotografije/${imageId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            post_id: 0
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            item.closest('.image-item').remove();
+                        } else {
+                            console.error('Failed to update post_id');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
 @endsection
