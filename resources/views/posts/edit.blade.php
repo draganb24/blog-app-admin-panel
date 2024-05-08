@@ -13,10 +13,38 @@
                         <input type="text" class="form-control" name="title" placeholder="Naslov objave"
                             value="{{ $post->title }}">
                     </div>
+                    @php
+                        $titleImage = DB::table('images')
+                            ->where('id', $post->image_id)
+                            ->first();
+                    @endphp
                     <div class="mb-3">
                         <label class="form-label">Naslovna fotografija</label>
                         <input type="file" class="form-control" name="image" id="image">
+                        <div>
+                            @if ($titleImage)
+                                <div class="image-item d-flex justify-content-between align-items-center mb-2">
+                                    <div>
+                                        <img src="{{ asset('storage/' . $titleImage->image_path) }}" alt="Title Image"
+                                            class="img-fluid" width="50" height="50">
+                                        <span>{{ $titleImage->image_caption }}</span>
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"
+                                        class="icon icon-tabler icons-tabler-outline icon-tabler-trash cursor-pointer delete-title-image">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 7l16 0" />
+                                        <path d="M10 11l0 6" />
+                                        <path d="M14 11l0 6" />
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </div>
                     </div>
+
                     @php
                         $galleryImages = DB::table('images')
                             ->where('post_id', $post->id)
@@ -174,5 +202,32 @@
                     });
             });
         });
+    </script>
+    <script>
+        const deleteTitleImage = document.querySelector('.delete-title-image');
+        if (deleteTitleImage) {
+            deleteTitleImage.addEventListener('click', event => {
+                const postSlug = window.location.pathname.split('/').pop();
+                fetch(`/api/objave/${postSlug}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            image_id: 0
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            deleteTitleImage.closest('.image-item').remove();
+                        } else {
+                            console.error('Failed to update image_id');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        }
     </script>
 @endsection

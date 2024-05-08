@@ -23,6 +23,7 @@ Route::put('/api/fotografije/{image}', [ImageController::class, 'update']);
 
 Route::apiResource('/objave', PostController::class);
 Route::post('/objave', [PostController::class, 'store'])->name('posts.store');
+Route::put('/api/objave/{slug}', [PostController::class, 'update']);
 
 Route::apiResource('/dokumenti', DocumentController::class);
 Route::put('/api/dokumenti/{document}', [DocumentController::class, 'update']);

@@ -16,7 +16,8 @@ class Post extends Model
         'content',
         'author',
         'slug',
-        'date_of_publishment'
+        'date_of_publishment',
+        'image_id'
     ];
 
     public function categories()
