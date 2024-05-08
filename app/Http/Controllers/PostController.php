@@ -103,6 +103,15 @@ class PostController extends Controller
             $image->post_id = $post->id;
         }
 
+        if ($request->has('images') && !empty($request->input('images'))) {
+            $images = Image::whereNull('post_id')->where('is_title', false)->get();
+
+            foreach ($images as $image) {
+                $image->post_id = $post->id;
+                $image->save();
+            }
+        }
+
         if ($request->has('documents') && !empty($request->input('documents'))) {
             $documents = Document::whereNull('post_id')->get();
 
