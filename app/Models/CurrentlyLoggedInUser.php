@@ -11,6 +11,8 @@ class CurrentlyLoggedInUser extends Model
 
     protected $fillable = [
         'user_id',
+        'session_token',
+        'browser'
     ];
 
     public function user()

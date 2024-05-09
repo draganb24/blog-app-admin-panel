@@ -16,7 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $loggedInUser = CurrentlyLoggedInUser::first(); // Assuming the table has only one record for the logged-in user
+        $userAgent = md5($request->header('User-Agent'));
+
+        $loggedInUser = CurrentlyLoggedInUser::where('browser', $userAgent)
+                                             ->first();
 
         if ($loggedInUser) {
             return $next($request);

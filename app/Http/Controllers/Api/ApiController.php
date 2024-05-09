@@ -39,11 +39,19 @@ class ApiController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
-            CurrentlyLoggedInUser::create(['user_id' => $user->id]);
+            $userAgent = md5($request->header('User-Agent'));
+            $token = $user->createToken("API TOKEN")->plainTextToken;
+
+            CurrentlyLoggedInUser::create([
+                'user_id' => $user->id,
+                'session_token' => $token,
+                'browser' => $userAgent
+            ]);
+
             return redirect('/objave')->with([
                 'status' => true,
                 'message' => 'User logged in successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $token
             ]);
         } catch (\Throwable $th) {
             return redirect('/ulogujte-se')->with([
@@ -53,7 +61,7 @@ class ApiController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         $lastLoggedInUser = CurrentlyLoggedInUser::latest()->first();
 
